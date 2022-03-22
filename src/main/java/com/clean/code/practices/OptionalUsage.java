@@ -27,6 +27,10 @@ public class OptionalUsage {
 
 		return Optional.of("Ezgi Bingöl");
 	}
+	
+	Optional<String> sayHello(String c){
+		return Optional.of("Hello " + c);
+	}
 
 	public static void main(String... args) {
 
@@ -44,9 +48,23 @@ public class OptionalUsage {
 
 		optionalUsage.findByAccountNo().ifPresentOrElse(s -> System.out.println("printingIfExists"),
 				() -> System.out.println("printEmptyIfNotExists"));
-
+		
+		System.out.println(optionalUsage.findByCustomerNo().map(c-> c + " wellcome ").orElse("default"));
+		
+		System.out.println("Nothing to print if param of 'map' is null "
+		+ Optional.ofNullable(optionalUsage.findById()).map(c-> c + " wellcome ").orElse("empty"));
+		
+		System.out.println("Using flatMap " + 
+		      optionalUsage.findByCustomerNo().flatMap(c-> optionalUsage.sayHello(c)).orElse("Default"));
+		
+		System.out.println("Does it contain 'Hello': " + optionalUsage.findByCustomerNo().
+				flatMap(c->optionalUsage.sayHello(c)).filter(c->c.contains("Hello")).isPresent());
+		
+		System.out.println("Does it contain 'Hello': " + optionalUsage.findByAccountNo().
+				flatMap(c->optionalUsage.sayHello(c)).filter(c->c.contains("Hello")).isPresent());
+		
 		System.out.println("Assigning default value in empty case: " + Optional.ofNullable(optionalUsage.findById())
-				.orElseGet(() -> optionalUsage.findByAccountNo().orElseThrow(NullPointerException::new)));
+		.orElseGet(() -> optionalUsage.findByAccountNo().orElseThrow(NullPointerException::new)));
 
 	}
 
