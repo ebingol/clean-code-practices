@@ -24,6 +24,10 @@ public class Customer {
 			this.salary = customer.getSalary();
 		}
 		
+		public Customer() {
+		    // TODO Auto-generated constructor stub
+		}
+
 		public Customer convertToUpper(Customer customer) {
 			Customer tempCustomer = new Customer(customer);
 			tempCustomer.setLastName(tempCustomer.getLastName().toUpperCase());

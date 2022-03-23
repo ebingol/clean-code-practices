@@ -54,30 +54,30 @@ public class OptionalUsage {
 
 	System.out.println("Nothing to print if param of 'map' is null "
 		+ Optional.ofNullable(optionalUsage.findById())
-		.map(c -> c + " wellcome ").orElse("empty"));
+			.map(c -> c + " wellcome ").orElse("empty"));
 
 	System.out.println("Using flatMap " +
 		optionalUsage.findByCustomerNo()
-	                      .flatMap(c -> optionalUsage.sayHello(c)).orElse("Default"));
+			.flatMap(c -> optionalUsage.sayHello(c)).orElse("Default"));
 
-	System.out.println("Does it contain 'Hello': " 
-	+ optionalUsage.findByCustomerNo()
-		.flatMap(c -> optionalUsage.sayHello(c))
-		.filter(c -> c.contains("Hello")).isPresent());
+	System.out.println("Does it contain 'Hello': "
+		+ optionalUsage.findByCustomerNo()
+			.flatMap(c -> optionalUsage.sayHello(c))
+			.filter(c -> c.contains("Hello")).isPresent());
 
-	System.out.println("Does it contain 'Hello': " 
-	+ optionalUsage.findByCustomerNo()
-		.flatMap(c -> optionalUsage.sayHello(c))
-		.filter(c -> c.contains("Good Bye")).isPresent());
+	System.out.println("Does it contain 'Hello': "
+		+ optionalUsage.findByCustomerNo()
+			.flatMap(c -> optionalUsage.sayHello(c))
+			.filter(c -> c.contains("Good Bye")).isPresent());
 
-	System.out.println("Does it contain 'Hello': " 
-	+ optionalUsage.findByAccountNo()
-		.flatMap(c -> optionalUsage.sayHello(c))
-		.filter(c -> c.contains("Hello")).isPresent());
+	System.out.println("Does it contain 'Hello': "
+		+ optionalUsage.findByAccountNo()
+			.flatMap(c -> optionalUsage.sayHello(c))
+			.filter(c -> c.contains("Hello")).isPresent());
 
-	System.out.println("Assigning default value in empty case: " 
-	+ Optional.ofNullable(optionalUsage.findById())
-		.orElseGet(() -> optionalUsage.findByAccountNo().orElseThrow(NullPointerException::new)));
+	System.out.println("Assigning default value in empty case: "
+		+ Optional.ofNullable(optionalUsage.findById())
+			.orElseGet(() -> optionalUsage.findByAccountNo().orElseThrow(NullPointerException::new)));
 
     }
 
