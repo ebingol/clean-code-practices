@@ -4,68 +4,81 @@ import java.util.Optional;
 
 public class OptionalUsage {
 
-	String findById() {
-		return null;
-	}
+    String findById() {
+	return null;
+    }
 
-	String findByName() {
+    String findByName() {
 
-		System.out.println("Avoiding Null Checks");
+	System.out.println("Avoiding Null Checks");
 
-		return "Avoiding Null Checks";
+	return "Avoiding Null Checks";
 
-	}
+    }
 
-	Optional<String> findByAccountNo() {
+    Optional<String> findByAccountNo() {
 
-		Optional<String> empty = Optional.empty();
+	Optional<String> empty = Optional.empty();
 
-		return empty;
-	}
+	return empty;
+    }
 
-	Optional<String> findByCustomerNo() {
+    Optional<String> findByCustomerNo() {
 
-		return Optional.of("Ezgi Bingöl");
-	}
-	
-	Optional<String> sayHello(String c){
-		return Optional.of("Hello " + c);
-	}
+	return Optional.of("Ezgi Bingöl");
+    }
 
-	public static void main(String... args) {
+    Optional<String> sayHello(String c) {
+	return Optional.of("Hello " + c);
+    }
 
-		final OptionalUsage optionalUsage = new OptionalUsage();
+    public static void main(String... args) {
 
-		Optional.ofNullable(optionalUsage.findById()).orElseGet(() -> optionalUsage.findByName());
+	final OptionalUsage optionalUsage = new OptionalUsage();
 
-		System.out
-				.println("Assigning default value in empty case: " + optionalUsage.findByAccountNo().orElse("Default"));
+	Optional.ofNullable(optionalUsage.findById()).orElseGet(() -> optionalUsage.findByName());
 
-		System.out.println("Executing just empty Case: "
-				+ optionalUsage.findByCustomerNo().orElseGet(() -> optionalUsage.findByName()));
+	System.out
+		.println("Assigning default value in empty case: " + optionalUsage.findByAccountNo().orElse("Default"));
 
-		optionalUsage.findByCustomerNo().ifPresent(s -> System.out.println(" printing if exists"));
+	System.out.println("Executing just empty Case: "
+		+ optionalUsage.findByCustomerNo().orElseGet(() -> optionalUsage.findByName()));
 
-		optionalUsage.findByAccountNo().ifPresentOrElse(s -> System.out.println("printingIfExists"),
-				() -> System.out.println("printEmptyIfNotExists"));
-		
-		System.out.println(optionalUsage.findByCustomerNo().map(c-> c + " wellcome ").orElse("default"));
-		
-		System.out.println("Nothing to print if param of 'map' is null "
-		+ Optional.ofNullable(optionalUsage.findById()).map(c-> c + " wellcome ").orElse("empty"));
-		
-		System.out.println("Using flatMap " + 
-		      optionalUsage.findByCustomerNo().flatMap(c-> optionalUsage.sayHello(c)).orElse("Default"));
-		
-		System.out.println("Does it contain 'Hello': " + optionalUsage.findByCustomerNo().
-				flatMap(c->optionalUsage.sayHello(c)).filter(c->c.contains("Hello")).isPresent());
-		
-		System.out.println("Does it contain 'Hello': " + optionalUsage.findByAccountNo().
-				flatMap(c->optionalUsage.sayHello(c)).filter(c->c.contains("Hello")).isPresent());
-		
-		System.out.println("Assigning default value in empty case: " + Optional.ofNullable(optionalUsage.findById())
+	optionalUsage.findByCustomerNo().ifPresent(s -> System.out.println(" printing if exists"));
+
+	optionalUsage.findByAccountNo().ifPresentOrElse(s -> System.out.println("printingIfExists"),
+		() -> System.out.println("printEmptyIfNotExists"));
+
+	System.out.println(optionalUsage.findByCustomerNo()
+		.map(c -> c + " wellcome ").orElse("default"));
+
+	System.out.println("Nothing to print if param of 'map' is null "
+		+ Optional.ofNullable(optionalUsage.findById())
+		.map(c -> c + " wellcome ").orElse("empty"));
+
+	System.out.println("Using flatMap " +
+		optionalUsage.findByCustomerNo()
+	                      .flatMap(c -> optionalUsage.sayHello(c)).orElse("Default"));
+
+	System.out.println("Does it contain 'Hello': " 
+	+ optionalUsage.findByCustomerNo()
+		.flatMap(c -> optionalUsage.sayHello(c))
+		.filter(c -> c.contains("Hello")).isPresent());
+
+	System.out.println("Does it contain 'Hello': " 
+	+ optionalUsage.findByCustomerNo()
+		.flatMap(c -> optionalUsage.sayHello(c))
+		.filter(c -> c.contains("Good Bye")).isPresent());
+
+	System.out.println("Does it contain 'Hello': " 
+	+ optionalUsage.findByAccountNo()
+		.flatMap(c -> optionalUsage.sayHello(c))
+		.filter(c -> c.contains("Hello")).isPresent());
+
+	System.out.println("Assigning default value in empty case: " 
+	+ Optional.ofNullable(optionalUsage.findById())
 		.orElseGet(() -> optionalUsage.findByAccountNo().orElseThrow(NullPointerException::new)));
 
-	}
+    }
 
 }
